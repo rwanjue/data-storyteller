@@ -1,0 +1,113 @@
+USE [RMG DataWarehouse]
+GO
+
+
+CREATE OR ALTER Procedure [dbo].[UpdateLoanApplication]
+	@FirstName nvarchar(255),
+	@LastName nvarchar(255),
+	@Gender nvarchar(255),
+	@MaritalStatus nvarchar(255),
+	@Ethnicity nvarchar(255),
+	@Employer nvarchar(255),
+	@Address nvarchar(255),
+	@City nvarchar(255),
+	@State nvarchar(255),
+	@Zip float,
+	@Office nvarchar(255),
+	@Region nvarchar(255),
+	@Phone1 nvarchar(255),
+	@Phone2 nvarchar(255),
+	@Email nvarchar(255),
+	@DOB datetime,
+	@SSN nvarchar(255),
+	@HireDate datetime,
+	@GrossMonthlyIncome money,
+	@IncomeFromOtherSources money,
+	@CreditScore float,
+	@CoBorrowerFirstName nvarchar(255),
+	@CoBorrowerLastName nvarchar(255),
+	@CoDOB datetime,
+	@COSSN nvarchar(255),
+	@CoCurrentEmployer nvarchar(255),
+	@CoLengthOfEmployment float,
+	@CoGrossMonthlyIncome money,
+	@LoanDate datetime,
+	@LoanType nvarchar(255),
+	@LoanAmount money,
+	@DownPayment money,
+	@CurrentBalance money,
+	@MultipleProperties nvarchar(255),
+	@CurrentPropertyTaxes money,
+	@CurrentHomeOwnerInsurance money,
+	@CoCreditScore float,
+	@Channel nvarchar(255),
+	@LoanStatus nvarchar(255),
+	@LoanOfficer nvarchar(255),
+	@RealtorsName nvarchar(255),
+	@ReltorCompany nvarchar(255),
+	@RealtorLocation nvarchar(255),
+	@RealtorState nvarchar(255),
+	@LoanID nvarchar(255)
+AS
+BEGIN
+		If Exists (Select * From [dbo].[RMG_DW]  Where LoanID = @LoanID)
+BEGIN
+	--If Loan ID Exists, Update record
+UPDATE [dbo].[RMG_DW]
+	Set 
+	FirstName  = @FirstName,
+	LastName  = @LastName,
+	Gender  = @Gender,
+	MaritalStatus  = @MaritalStatus,
+	Ethnicity  = @Ethnicity,
+	Employer  = @Employer,
+	Address  = @Address,
+	City  = @City,
+	State  = @State,
+	Zip  = @Zip,
+	Office  = @Office,
+	Region  = @Region,
+	Phone1  = @Phone1,
+	Phone2  = @Phone2,
+	Email  = @Email,
+	DOB = @DOB,
+	SSN = @SSN,
+	HireDate  = @HireDate,
+	GrossMonthlyIncome  = @GrossMonthlyIncome,
+	IncomeFromOtherSources  = @IncomeFromOtherSources,
+	CreditScore  = @CreditScore,
+	CoBorrowerFirstName  = @CoBorrowerFirstName,
+	CoBorrowerLastName  = @CoBorrowerLastName,
+	CoDOB  = @CoDOB,
+	COSSN  = @COSSN,
+	CoCurrentEmployer  = @CoCurrentEmployer,
+	CoLengthOfEmployment  = @CoLengthOfEmployment,
+	CoGrossMonthlyIncome  = @CoGrossMonthlyIncome,
+	LoanDate  = @LoanDate,
+	LoanType  = @LoanType,
+	LoanAmount  = @LoanAmount,
+	DownPayment  = @DownPayment,
+	CurrentBalance  = @CurrentBalance,
+	MultipleProperties  = @MultipleProperties,
+	CurrentPropertyTaxes  = @CurrentPropertyTaxes,
+	CurrentHomeOwnerInsurance  = @CurrentHomeOwnerInsurance,
+	CoCreditScore  = @CoCreditScore,
+	Channel  = @Channel,
+	LoanStatus  = @LoanStatus,
+	LoanOfficer  = @LoanOfficer,
+	RealtorsName  = @RealtorsName,
+	ReltorCompany  = @ReltorCompany,
+	RealtorLocation  = @RealtorLocation,
+	RealtorState  = @RealtorState
+Where LoanID  = @LoanID 
+END
+ELSE
+BEGIN
+--If Loan ID does not Exist, Insert record
+INSERT [dbo].[RMG_DW] (FirstName, LastName, Gender, MaritalStatus, Ethnicity, Employer, Address, City, State, Zip, Office, Region, Phone1, Phone2, Email, DOB, SSN, HireDate, GrossMonthlyIncome, IncomeFromOtherSources, CreditScore, CoBorrowerFirstName, CoBorrowerLastName, CoDOB, COSSN, CoCurrentEmployer, CoLengthOfEmployment, CoGrossMonthlyIncome, LoanDate, LoanType, LoanAmount, DownPayment, CurrentBalance , MultipleProperties, CurrentPropertyTaxes, CurrentHomeOwnerInsurance, CoCreditScore, Channel, LoanStatus, LoanOfficer, RealtorsName, ReltorCompany, RealtorLocation, RealtorState, LoanID)
+VALUES (@FirstName, @LastName, @Gender, @MaritalStatus, @Ethnicity, @Employer, @Address, @City, @State, @Zip, @Office, @Region, @Phone1, @Phone2, @Email, @DOB, @SSN, @HireDate, @GrossMonthlyIncome, @IncomeFromOtherSources, @CreditScore, @CoBorrowerFirstName, @CoBorrowerLastName, @CoDOB, @COSSN, @CoCurrentEmployer, @CoLengthOfEmployment, @CoGrossMonthlyIncome, @LoanDate, @LoanType, @LoanAmount, @DownPayment, @CurrentBalance, @MultipleProperties, @CurrentPropertyTaxes, @CurrentHomeOwnerInsurance, @CoCreditScore, @Channel, @LoanStatus, @LoanOfficer, @RealtorsName, @ReltorCompany, @RealtorLocation, @RealtorState, @LoanID)
+END
+END
+
+GO
+
